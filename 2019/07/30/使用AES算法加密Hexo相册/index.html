@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用AES算法加密Hexo相册 - 舒万知</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="789">
+  <meta name="description" content="本教程承接上篇Hexo博客添加一级分类相册。
+在上篇教...">
+  <meta name="author" content="peng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">使用AES算法加密Hexo相册</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">使用AES算法加密Hexo相册</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>July 30, 2019</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>7112</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>本教程承接上篇<a href="/2019/07/22/hexo%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E4%B8%80%E7%BA%A7%E5%88%86%E7%B1%BB%E7%9B%B8%E5%86%8C/">Hexo博客添加一级分类相册</a>。</p>
+<p>在上篇教程中，我们已经实现了hexo的分类相册功能。然后我发现那个大佬的相册竟然还有加密的功能（点击进入<a target="_blank" rel="noopener" href="http://www.rayblog.cn/album/">大佬的相册</a>），在大佬的这篇<a target="_blank" rel="noopener" href="http://www.rayblog.cn/posts/uncategorized/2017-07-05-establish-blog.html">教程</a>下面，还有一个参考资料：使用AES算法加密hexo文章，可惜的是链接已经失效了，不过也没有关系，在网上查找相关资料后，我也把它实现了，本篇教程就来实现相册加密功能。</p>
+<p>先来科普一下AES加密算法：高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。</p>
+<h4 id="1、主题自带的加密"><a href="#1、主题自带的加密" class="headerlink" title="1、主题自带的加密"></a>1、主题自带的加密</h4><p>首先我发现本主题自带一个加密功能：如下图：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_120352.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>它的实现效果是这样的：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_120754.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>在进入界面的时候就要求输入密码，不输或输入错误都会跳转到首页。</p>
+<p>在我看了源码之后发现是这样实现的，如果文章配置了加密就在页面里加上一段js代码，源码在<code>post.ejs</code>文件里，如下图；</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_121113.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>页面内生成的js代码呢，是这样的：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_121325.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>我们可以看到密码是直接写在页面内的，主题作者是采用<code>SHA256</code>再加密一遍密码，再用这个值当密码，防止别人识破。然而这种方式是伪加密的，查看网页的源代码就可以看到文章的内容。这种方式可以阻挡99%的人，但是对付懂行的人就不行了，有心人费点心思就能破解。</p>
+<h4 id="2、Hexo插件加密"><a href="#2、Hexo插件加密" class="headerlink" title="2、Hexo插件加密"></a>2、Hexo插件加密</h4><p>然后我以<code>hexo 加密</code>为关键字搜索相关教程，得到的结果如下：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_115324.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>里面的内容大同小异，不外乎两个hexo的插件：一个是<code>hexo-blog-encrypt</code>，另一个是<code>hexo-encrypt</code>。在我把两个插件都尝试过了之后，发现这两个插件只能加密<code>文章</code>，也就是hexo从md文件里读取到的文章内容。而我们的相册呢，是根据配置文件自动生成的，并没有在md文件里写着，实现不了加密。</p>
+<p>好吧，那我就研究一下这两个插件的原理，看它们是如何实现文章加密的。</p>
+<p>先使用<code>hexo-blog-encrypt</code>插件，给<a href="">hello world</a>这篇文章加密试试：<br>首先启用该插件，在根目录的_config.yml中启用该插件，添加以下代码:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Security  </span></span><br><span class="line">  <span class="attr">encrypt:</span> </span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后设置文章的密码，在文章头部加上<code>password</code>字段,密码为2233:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line">title: Hello，world！</span><br><span class="line">date: 2019-07-15 17:25:30</span><br><span class="line">password: 2233</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">-</span> hello world</span><br><span class="line">categories:</span><br><span class="line"><span class="bullet">-</span> 日志  </span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后<code>hexo-blog-encrypt</code>插件就会把文章加密了，如下图：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_131238.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>页面结构如下：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_131459.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>文章的内容被加密成了这么一坨字符串，解密后变成了这样：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_131813.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>文章的内容，就是两个P标签。</p>
+<h4 id="3、插件的加密过程"><a href="#3、插件的加密过程" class="headerlink" title="3、插件的加密过程"></a>3、插件的加密过程</h4><p>那一坨字符串是怎么变成两个P标签的呢，我仔细研究后发现解密的功能在<code>blog-encrypt.js</code>这个文件里，在知道正确密码的情况下，执行了四步转换才将那个字符串解密，源码如下：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_133345.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>那么这四步都干了什么呢，我把上面加密后的一坨字符串和相关js都放到一个html里在浏览器控制台调试一下，看看究竟是怎么解密的：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_133720.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>控制台输出如下：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_133817.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>我们可以看到，在第四步输出了解密后的HTML标签。</p>
+<p>解密步骤如下：</p>
+<p>1、根据密码使用AES算法将密文解密，解密的代码为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> content = CryptoJS.AES.decrypt(encriptHtmlStr, password);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>解密出来的内容是一个JS对象，里面有一个words数组，展开后如下图：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_135141.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>2、将上面那个JS对象转换为utf-8码，转换后为成为一个base64字符串。</p>
+<p>3、解码base64字符串，解码后是一个经过js转码(escape)的字符串。</p>
+<p>4、解码(unescape)上面的字符串，最终结果为HTML标签。</p>
+<p>既然知道了解密的过程，那么可以推断加密过程就是上述步骤的逆操作，在查看<code>hexo-blog-encrypt</code>的源码之后（在<code>node_modules</code>目录下），果不其然，找到如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data.content = <span class="built_in">escape</span>(data.content);</span><br><span class="line">data.content = CryptoJS.enc.Utf8.parse(data.content);</span><br><span class="line">data.content = CryptoJS.enc.Base64.stringify(data.content);</span><br><span class="line">data.content = CryptoJS.AES.encrypt(data.content, <span class="built_in">String</span>(data.password)).toString();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>CryptoJS是引入的<code>npm</code>插件<code>crypto-js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> CryptoJS = <span class="built_in">require</span>(<span class="string">&#x27;crypto-js&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>那么我们也能写一个加密函数，在生成HTML字符串的时候加密它，然后把加密后的字符串渲染出来。</p>
+<h4 id="4、加密辅助函数"><a href="#4、加密辅助函数" class="headerlink" title="4、加密辅助函数"></a>4、加密辅助函数</h4><p>然而在实际操作的时候我发现在ejs文件里面用常规的方法引入<code>npm</code>插件是不行的，无论是<code>import &#39;crypto-js&#39;</code>还是 <code>require(&#39;crypto-js&#39;)</code>都是不行的。那么如何在ejs里面调用外部函数呢？ </p>
+<p>在查看<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/api/helper.html">官方文档</a>之后发现需要自己写一个辅助函数（helper），才能在ejs里调用它：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_192430.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>然后我们在主题根目录下新建以下目录和文件<code>scripts/helpers/encrypt.js</code>，<code>encrypt.js</code>内代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* global hexo */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CryptoJS = <span class="built_in">require</span>(<span class="string">&#x27;crypto-js&#x27;</span>);</span><br><span class="line"></span><br><span class="line">hexo.extend.helper.register(<span class="string">&#x27;aes&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">content,password</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  content = <span class="built_in">escape</span>(content);</span><br><span class="line">  content = CryptoJS.enc.Utf8.parse(content);</span><br><span class="line">  content = CryptoJS.enc.Base64.stringify(content);</span><br><span class="line">  content = CryptoJS.AES.encrypt(content, <span class="built_in">String</span>(password)).toString();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> content;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注册一个名为<code>aes</code>的辅助函数，这样才能在ejs文件里使用它。</p>
+<p>然后将<code>gallery.ejs</code>文件内中间的HTML部分改成如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;photo-wrapper&quot;</span>&gt;</span></span><br><span class="line">        &lt;% if (page.password ) &#123; %&gt;</span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/lib/crypto-js.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;/js/gallery-encrypt.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;hbe-security&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;hbe-input-container&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">class</span>=<span class="string">&quot;hbe-form-control&quot;</span> <span class="attr">id</span>=<span class="string">&quot;pass&quot;</span>  <span class="attr">placeholder</span>=<span class="string">&quot;请输入密码查看内容&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn-decrypt&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn_decrypt&quot;</span>&gt;</span>解密<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>  <span class="attr">id</span>=<span class="string">&quot;mygallery&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;waterfall&quot;</span> <span class="attr">id</span>=<span class="string">&quot;encrypt-blog&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display:none&quot;</span>&gt;</span></span><br><span class="line">                    &lt;%- aes(imageStr, page.password) %&gt;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        &lt;% &#125; else &#123; %&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;waterfall&quot;</span> <span class="attr">id</span>=<span class="string">&quot;encrypt-blog&quot;</span>&gt;</span></span><br><span class="line">                &lt;%- imageStr %&gt;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        &lt;% &#125; %&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>初始化<code>justifiedGallery</code>插件的那句代码修改成下面的，就是改了一个id</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#encrypt-blog&quot;</span>).justifiedGallery(&#123;<span class="attr">margins</span>: <span class="number">5</span>, <span class="attr">rowHeight</span>: <span class="number">150</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这段代码的作用就是判断相册是否有密码，有则加密，没有则正常渲染，密码也是写在md文件的头部，加密后页面样式和HTML结构如下：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_220409.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%8A%A0%E5%AF%86%E7%9B%B8%E5%86%8C%E6%95%99%E7%A8%8B/20190730_211445.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>可以看到内容已经被加密成了一坨乱码，在这里，我手动加了一个<code>解密</code>按钮，原来插件是没有的，然后写点css美化一下，我是加到了<code>my.css</code>里面</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.hbe-input-container</span>  <span class="selector-class">.btn-decrypt</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">vertical-align</span>: top;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">32px</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">32px</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#ffffff</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#3f90ff</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">-webkit-border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">-moz-border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5、修改解密js文件"><a href="#5、修改解密js文件" class="headerlink" title="5、修改解密js文件"></a>5、修改解密js文件</h4><p>因为和文章的加密有点区别，而且插件的解密操作会在id为<code>encrypt-blog</code>的div上加上一些样式，会导致<code>justifiedGallery</code>样式错乱，所以是不能直接用文章的解密js文件（<code>/lib/blog-encrypt.js</code>）的。此文件在发布后才会生成，在<code>hexo-blog-encrypt</code>插件的目录（<code>node_modules/hexo-blog-encrypt</code>）下也能找到，需要做些修改才能解密相册，找到该文件后复制一份，重命名为<code>gallery-encrypt.js</code>,放到主题目录<code>source/js</code>下，替换文件尾部<code>$(document).ready()</code>里面的代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> password = <span class="built_in">String</span>(getCookie(GenerateCookieName()));</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Get password from Cookie:<span class="subst">$&#123;password&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (password != <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!decryptAES(password)) &#123;</span><br><span class="line">        <span class="comment">// Delete cookie</span></span><br><span class="line">        setCookie(COOKIE_NAME, password, -<span class="number">5</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">&#x27;encrypt-blog&#x27;</span>).removeAttribute(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        $(<span class="string">&quot;#encrypt-blog&quot;</span>).justifiedGallery(&#123;<span class="attr">margins</span>: <span class="number">5</span>, <span class="attr">rowHeight</span>: <span class="number">150</span>&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&#x27;pass&#x27;</span>).onkeypress = <span class="function"><span class="keyword">function</span> (<span class="params">keyPressEvent</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      password = <span class="built_in">String</span>(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;pass&#x27;</span>).value);</span><br><span class="line">      <span class="keyword">if</span> (keyPressEvent.keyCode === <span class="number">13</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> result = decryptAES(password);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result) &#123;</span><br><span class="line">          <span class="built_in">document</span>.getElementById(<span class="string">&#x27;encrypt-blog&#x27;</span>).removeAttribute(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line"></span><br><span class="line">          $(<span class="string">&quot;#encrypt-blog&quot;</span>).justifiedGallery(&#123;<span class="attr">margins</span>: <span class="number">5</span>, <span class="attr">rowHeight</span>: <span class="number">150</span>&#125;);</span><br><span class="line"></span><br><span class="line">          setCookie(GenerateCookieName(), password, <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    $(<span class="string">&#x27;#btn_decrypt&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">      password = <span class="built_in">String</span>(<span class="built_in">document</span>.getElementById(<span class="string">&#x27;pass&#x27;</span>).value);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> result = decryptAES(password);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (result) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">&#x27;encrypt-blog&#x27;</span>).removeAttribute(<span class="string">&#x27;style&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        $(<span class="string">&quot;#encrypt-blog&quot;</span>).justifiedGallery(&#123;<span class="attr">margins</span>: <span class="number">5</span>, <span class="attr">rowHeight</span>: <span class="number">150</span>&#125;);</span><br><span class="line"></span><br><span class="line">        setCookie(GenerateCookieName(), password, <span class="number">30</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这段代码的作用就是在解密后清除id为<code>encrypt-blog</code>这个div的样式，然后再初始化 <code>justifiedGallery</code>插件，解决图片错乱的问题，还有给按钮绑定解密的操作。</p>
+<p>至此，相册的加密功能也已经实现了。你可以前往<a href="/galleries/private/">体验一下</a>，看你能不能破解。</p>
+<h4 id="6、注意事项"><a href="#6、注意事项" class="headerlink" title="6、注意事项"></a>6、注意事项</h4><p>需要注意的是上面HTML里引入的<code>crypto-js.js</code>这个文件，只有安装了<code>hexo-blog-encrypt</code>插件发布后才会生成，如果你不想安装这个插件，则需要手动安装<code>crypto-js</code>: <code>npm i crypto-js</code>, 然后在插件目录下找到<code>crypto-js.js</code>文件，复制出来放到<code>source/js</code>下，引用路径也要改一下。</p>
+<p>博客源码已上传至github: <a target="_blank" rel="noopener" href="https://github.com/liyang5945/liyang5945.github.io">点击前往</a>,觉得不错的可以给个STAR支持一下。</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>peng</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2019/07/30/%E4%BD%BF%E7%94%A8AES%E7%AE%97%E6%B3%95%E5%8A%A0%E5%AF%86Hexo%E7%9B%B8%E5%86%8C/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;07&#x2F;30&#x2F;%E4%BD%BF%E7%94%A8AES%E7%AE%97%E6%B3%95%E5%8A%A0%E5%AF%86Hexo%E7%9B%B8%E5%86%8C&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;07&#x2F;30&#x2F;%E4%BD%BF%E7%94%A8AES%E7%AE%97%E6%B3%95%E5%8A%A0%E5%AF%86Hexo%E7%9B%B8%E5%86%8C&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag">加密</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B8%E5%86%8C/" rel="tag">相册</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2019/08/22/%E9%9D%92%E6%B5%B7%E6%B9%96%E9%AA%91%E8%A1%8C%E8%AE%B0/"><i class="iconfont iconleft"></i>青海湖骑行记</a>
+    <a href="/2019/07/15/hello-world%E7%9A%84%E5%89%AF%E6%9C%AC/">Hello，world！<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/izhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
