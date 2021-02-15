@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用js-xlsx插件导出多级表头excel - 舒万知</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="789">
+  <meta name="description" content="最近项目里有这么一个需求，把一个多级表头的table导...">
+  <meta name="author" content="peng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: '/778/91.jpg',
+        wechat: '/778/wechat 61.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">使用js-xlsx插件导出多级表头excel</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li><li class="menu-item">
+        <a href="/navigate " class="underline "> navigate</a>
+      </li><li class="menu-item">
+        <a href="/navigate2 " class="underline "> navigate2</a>
+      </li><li class="menu-item">
+        <a href="/记仇 " class="underline "> 记仇</a>
+      </li><li class="menu-item">
+        <a href="/动态 " class="underline "> 动态</a>
+      </li><li class="menu-item">
+        <a href="/box " class="underline "> box</a>
+      </li><li class="menu-item">
+        <a href="/live2d-w " class="underline "> live2d-w</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">使用js-xlsx插件导出多级表头excel</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>February 27, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8213</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>最近项目里有这么一个需求，把一个多级表头的table导出为excel格式。然后在网上找到一篇文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9a465d7d1448">js-xlsx导出自定义合并列头实现思路</a>，我按照他的教程操作之后发现比较繁琐，这篇文章的思路就是就是新建一个excel，然后用js来读取它的多级表头数据，再把json格式的表头数据复制到项目中使用。核心就是这个json格式的多级表头数据，这样一个多级表头导出来是这个样子的:</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel/20200227_101309.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;!ref&quot;</span>: <span class="string">&quot;A1:F3&quot;</span>, <span class="attr">&quot;A1&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;日期&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;日期&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;日期&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;日期&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;B1&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;配送信息&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;配送信息&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;配送信息&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;配送信息&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;B2&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;姓名&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;姓名&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;姓名&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;姓名&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;C2&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;地址&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;C3&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;省份&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;省份&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;省份&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;省份&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;D3&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;市区&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;市区&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;市区&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;市区&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;E3&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;地址&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;地址&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;F3&quot;</span>: &#123;<span class="attr">&quot;t&quot;</span>: <span class="string">&quot;s&quot;</span>, <span class="attr">&quot;v&quot;</span>: <span class="string">&quot;邮编&quot;</span>, <span class="attr">&quot;r&quot;</span>: <span class="string">&quot;邮编&quot;</span>, <span class="attr">&quot;h&quot;</span>: <span class="string">&quot;邮编&quot;</span>, <span class="attr">&quot;w&quot;</span>: <span class="string">&quot;邮编&quot;</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;!margins&quot;</span>: &#123;<span class="attr">&quot;left&quot;</span>: <span class="number">0.7</span>, <span class="attr">&quot;right&quot;</span>: <span class="number">0.7</span>, <span class="attr">&quot;top&quot;</span>: <span class="number">0.75</span>, <span class="attr">&quot;bottom&quot;</span>: <span class="number">0.75</span>, <span class="attr">&quot;header&quot;</span>: <span class="number">0.3</span>, <span class="attr">&quot;footer&quot;</span>: <span class="number">0.3</span>&#125;,</span><br><span class="line">    <span class="attr">&quot;!merges&quot;</span>: [&#123;<span class="attr">&quot;s&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">0</span>&#125;, <span class="attr">&quot;e&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">0</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">2</span>&#125;&#125;, &#123;</span><br><span class="line">      <span class="attr">&quot;s&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">0</span>&#125;, <span class="attr">&quot;e&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">5</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">0</span>&#125;</span><br><span class="line">    &#125;, &#123;<span class="attr">&quot;s&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">1</span>&#125;, <span class="attr">&quot;e&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">2</span>&#125;&#125;, &#123;<span class="attr">&quot;s&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">2</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">1</span>&#125;, <span class="attr">&quot;e&quot;</span>: &#123;<span class="attr">&quot;c&quot;</span>: <span class="number">5</span>, <span class="attr">&quot;r&quot;</span>: <span class="number">1</span>&#125;&#125;]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>我暂时没看出来这种格式的规律是什么，如果想要修改表头格式的化就感觉比较麻烦，需要修改excel再导出一次。</p>
+<p>后来在开源项目<a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin/">vue-element-admin</a>上也找到了这个功能，使用方法比较简单。</p>
+<h3 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h3><p>使用npm安装<code>xlsx</code>和<code>file-saver</code>插件</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install xlsx --save</span><br><span class="line">npm install file-saver --save</span><br></pre></td></tr></table></figure>
+<p>下载Export2Excel.js文件，放到<code>src/vendor</code>目录下，下载地址：<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/PanJiaChen/vue-element-admin/master/src/vendor/Export2Excel.js">Export2Excel.js</a>(github地址，打不开请科学上网）</p>
+<p>然后提取合并的表头数据，这种格式的表头数据比上面那种浅显易懂，如何合并可参考下面的图片，把蓝色部分合并单元格的坐标提取出来即可，下图的表头数据为：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel/20200227_111320.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> multiHeader =</span><br><span class="line">                   [</span><br><span class="line">                     [<span class="string">&#x27;日期&#x27;</span>, <span class="string">&#x27;配送信息&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>],</span><br><span class="line">                     [<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;地址&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line">                   ] <span class="comment">// 前两行的表头数据，二维数组，不够的用空白补全</span></span><br><span class="line"><span class="keyword">const</span> header = [<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;省份&#x27;</span>, <span class="string">&#x27;市区&#x27;</span>, <span class="string">&#x27;地址&#x27;</span>, <span class="string">&#x27;邮编&#x27;</span>] <span class="comment">// 最后一行的表头数据，合并过的也要用空白补全</span></span><br><span class="line"><span class="keyword">const</span> merges = [<span class="string">&#x27;A1:A3&#x27;</span>, <span class="string">&#x27;B1:F1&#x27;</span>, <span class="string">&#x27;B2:B3&#x27;</span>, <span class="string">&#x27;C2:F2&#x27;</span>] <span class="comment">//合并单元格的数据</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>vue文件源码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;padding: 20px;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;padding: 20px 0;&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">size</span>=<span class="string">&quot;small&quot;</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;handleDownload&quot;</span>&gt;</span>导出EXCEl<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &lt;el-table</span><br><span class="line">      class=&quot;center-table&quot;</span><br><span class="line">      :data=&quot;tableData&quot;</span><br><span class="line">      size=&quot;small&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;el-table-column</span><br><span class="line">        prop=&quot;date&quot;</span><br><span class="line">        label=&quot;日期&quot;</span><br><span class="line">        width=&quot;150&quot;</span><br><span class="line">      /&gt;</span><br><span class="line">      <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;配送信息&quot;</span>&gt;</span></span><br><span class="line">        &lt;el-table-column</span><br><span class="line">          prop=&quot;name&quot;</span><br><span class="line">          label=&quot;姓名&quot;</span><br><span class="line">          width=&quot;120&quot;</span><br><span class="line">        /&gt;</span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;地址&quot;</span>&gt;</span></span><br><span class="line">          &lt;el-table-column</span><br><span class="line">            prop=&quot;province&quot;</span><br><span class="line">            label=&quot;省份&quot;</span><br><span class="line">            width=&quot;120&quot;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;el-table-column</span><br><span class="line">            prop=&quot;city&quot;</span><br><span class="line">            label=&quot;市区&quot;</span><br><span class="line">            width=&quot;120&quot;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;el-table-column</span><br><span class="line">            prop=&quot;address&quot;</span><br><span class="line">            label=&quot;地址&quot;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;el-table-column</span><br><span class="line">            prop=&quot;zip&quot;</span><br><span class="line">            label=&quot;邮编&quot;</span><br><span class="line">            width=&quot;120&quot;</span><br><span class="line">          /&gt;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&#x27;MergeHeader&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line">      tableData: [&#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-03&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-02&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-04&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-01&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-08&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-06&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;, &#123;</span><br><span class="line"><span class="javascript">        date: <span class="string">&#x27;2016-05-07&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&#x27;王小虎&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        province: <span class="string">&#x27;上海&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        city: <span class="string">&#x27;普陀区&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        address: <span class="string">&#x27;上海市普陀区金沙江路 1518 弄&#x27;</span>,</span></span><br><span class="line">        zip: 200333</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">handleDownload</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">import</span>(<span class="string">&#x27;@/vendor/Export2Excel&#x27;</span>).then(<span class="function"><span class="params">excel</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> multiHeader =</span></span><br><span class="line">                            [</span><br><span class="line"><span class="javascript">                              [<span class="string">&#x27;日期&#x27;</span>, <span class="string">&#x27;配送信息&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>], <span class="comment">//第一行</span></span></span><br><span class="line"><span class="javascript">                              [<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;地址&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>] <span class="comment">//第二行</span></span></span><br><span class="line"><span class="javascript">                            ] <span class="comment">// 前两行的表头数据，二维数组，不够的用空白补全</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> header = [<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;省份&#x27;</span>, <span class="string">&#x27;市区&#x27;</span>, <span class="string">&#x27;地址&#x27;</span>, <span class="string">&#x27;邮编&#x27;</span>] <span class="comment">// 最后一行的表头数据</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> filterVal = [<span class="string">&#x27;date&#x27;</span>, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;province&#x27;</span>, <span class="string">&#x27;city&#x27;</span>, <span class="string">&#x27;address&#x27;</span>, <span class="string">&#x27;zip&#x27;</span>]</span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> list = <span class="built_in">this</span>.tableData</span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> data = <span class="built_in">this</span>.formatJson(filterVal, list)</span></span><br><span class="line"><span class="javascript">          <span class="keyword">const</span> merges = [<span class="string">&#x27;A1:A3&#x27;</span>, <span class="string">&#x27;B1:F1&#x27;</span>, <span class="string">&#x27;B2:B3&#x27;</span>, <span class="string">&#x27;C2:F2&#x27;</span>] <span class="comment">// 合并单元格的数据，如何合并参考上面图片的蓝色背景部分</span></span></span><br><span class="line">          excel.export_json_to_excel(&#123;</span><br><span class="line">            multiHeader,</span><br><span class="line">            header,</span><br><span class="line">            merges,</span><br><span class="line">            data</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">formatJson</span>(<span class="params">filterVal, jsonData</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> jsonData.map(<span class="function"><span class="params">v</span> =&gt;</span> filterVal.map(<span class="function"><span class="params">j</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> v[j]</span></span><br><span class="line">      &#125;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.center-table</span> <span class="selector-tag">td</span>, <span class="selector-class">.center-table</span> <span class="selector-tag">th</span> &#123;</span></span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>界面如图：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel/20200227_111142.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>导出来的excel如图：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel/20200227_111833.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>peng</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2020/02/27/%E5%89%8D%E7%AB%AF/%E4%BD%BF%E7%94%A8js-xlsx%E6%8F%92%E4%BB%B6%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;02&#x2F;27&#x2F;%E5%89%8D%E7%AB%AF&#x2F;%E4%BD%BF%E7%94%A8js-xlsx%E6%8F%92%E4%BB%B6%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;02&#x2F;27&#x2F;%E5%89%8D%E7%AB%AF&#x2F;%E4%BD%BF%E7%94%A8js-xlsx%E6%8F%92%E4%BB%B6%E5%AF%BC%E5%87%BA%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4excel&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="/778/91.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%A7%E8%A1%A8%E5%A4%B4/" rel="tag">多级表头</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/02/28/%E5%89%8D%E7%AB%AF/%E4%B8%80%E4%B8%AAjs%E6%95%B0%E7%BB%84%E5%88%86%E7%B1%BB%E6%B1%82%E5%92%8C%E7%AE%97%E6%B3%95/"><i class="iconfont iconleft"></i>一个js数组分类求和算法</a>
+    <a href="/2020/02/20/%E5%89%8D%E7%AB%AF/vue%E9%A1%B9%E7%9B%AEwatch%E5%86%85%E7%9A%84%E5%87%BD%E6%95%B0%E9%87%8D%E5%A4%8D%E8%A7%A6%E5%8F%91%E9%97%AE%E9%A2%98/">vue项目watch内的函数重复触发问题<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="toc-text">使用教程</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=392637221 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= 'hokonder_gmail_com'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://mp.weixin.qq.com/s/y60_Uf8C29M97Oy371lZrA "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="392637221@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/f8ddc9d3.js","daovoice")</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "09";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            
+	    </script>
+            <br>
+</html>
+
+
+  
+
+{% raw %}
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/spring.css">
+</head>
+<body>
+ 
+<!-- 网站主题切换模式开始 -->
+<script>
+    if (localStorage.getItem('themespring') === '1') {
+    document.body.classList.add('themespring');
+    }
+    else if (matchMedia('(prefers-color-scheme: themespring)').matches) {
+    document.body.classList.add('themespring');
+    }
+</script>
+<!-- 春节主题 按钮 -->
+<a onclick="switchThemes()" id="switchspring">
+    <img class="chunjiepic" src="./medias/spring-img/denglong.png" title="节日模式">
+</a>
+<!-- 春节主题 小鱼挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+    </div>              
+</div>
+
+<!-- 春节主题 花灯挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+    </div>              
+</div>
+ <!-- 春节主题 福袋挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+    </div>              
+</div>
+<!-- 春节主题 财神挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic" src="./medias/spring-img/caishen.png">
+    </div>                    
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic" src="./medias/spring-img/caishen.png">
+    </div>                    
+</div>
+<!-- 春节主题 大门挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+    </div>              
+</div>
+<!-- 春节主题 小鱼挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic shanzipic" src="./medias/spring-img/shanzi.png">
+    </div>              
+</div>
+<!-- 春节主题 福到挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+    </div>              
+</div>
+<!--春节主题 年货挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+    </div>              
+</div>
+<!-- 春节主题 老虎挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+    </div>              
+</div>
+
+<!--春节主题 划船挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/dragon-boat.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/dragon-boat.png">
+    </div>              
+</div>
+<!-- 春节主题 爆竹挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lions" src="./medias/spring-img/baozhu.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic lions" src="./medias/spring-img/baozhu.png">
+    </div>              
+</div>
+<!-- 春节主题 大鼓挂件 -->
+<div class="caishendeng">        
+    <div class="guguxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/gugu.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/gugu.png">
+    </div>              
+</div>
+<!--春节主题 财神中心-->
+<div class="caishendeng">        
+    <div class="guguxian wenzhangxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/caishen.png">
+    </div>              
+</div>
+
+<!-- 标签小帽子-->
+<img class="labelmz" src="./medias/spring-img/maozi.png">
+<!-- 头像小帽子-->
+<img class="xiaomaozitx" src="./medias/spring-img/maozi.png">
+<!-- 友链小帽子-->
+<img class="friendmz" src="./medias/spring-img/maozi.png">
+<!--大红灯笼-->
+<div class="denglong">
+    <div class="deng-box">
+        <div class="deng">
+            <div class="xian"></div>
+            <div class="deng-a">
+                <div class="deng-b"><div class="deng-t">如年</div></div>
+            </div>
+            <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+        </div>
+    </div>
+    <div class="deng-box1">
+        <div class="deng">
+            <div class="xian"></div>
+            <div class="deng-a">
+                <div class="deng-b"><div class="deng-t">冬至</div></div>
+            </div>
+            <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+        </div>
+    </div>
+</div>       
+<script src="./js/spring.js"></script>
+</body>
+{% endraw %}

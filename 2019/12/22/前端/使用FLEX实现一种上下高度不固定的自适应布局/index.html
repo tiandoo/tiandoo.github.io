@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用FLEX实现一种上下高度不固定的自适应布局 - 舒万知</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="789">
+  <meta name="description" content="此布局的需求是：头部高度不固定，由子元素撑高，中间内容...">
+  <meta name="author" content="peng">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: true,
+        alipay: '/778/91.jpg',
+        wechat: '/778/wechat 61.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">使用FLEX实现一种上下高度不固定的自适应布局</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li><li class="menu-item">
+        <a href="/navigate " class="underline "> navigate</a>
+      </li><li class="menu-item">
+        <a href="/navigate2 " class="underline "> navigate2</a>
+      </li><li class="menu-item">
+        <a href="/记仇 " class="underline "> 记仇</a>
+      </li><li class="menu-item">
+        <a href="/动态 " class="underline "> 动态</a>
+      </li><li class="menu-item">
+        <a href="/box " class="underline "> box</a>
+      </li><li class="menu-item">
+        <a href="/live2d-w " class="underline "> live2d-w</a>
+      </li></ul>
+    
+      <div class="menu-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://cdn.jsdelivr.net/gh/haoxihuan/520@master/banner/41.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">使用FLEX实现一种上下高度不固定的自适应布局</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 22, 2019</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3305</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <p>此布局的需求是：头部高度不固定，由子元素撑高，中间内容高度不固定，自动填满父容器剩余高度，底部高度固定。<br><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/FLEX%E4%B8%8A%E4%B8%8B%E5%B8%83%E5%B1%80/20191221_103338.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>这种布局是下面这种布局的变种：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/FLEX%E4%B8%8A%E4%B8%8B%E5%B8%83%E5%B1%80/20191221_101238.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>头部和中间内容都变成了不固定的，一般用于后台管理系统，上部分是一些查询条件和操作按钮，查询条件个数不固定，中间部分是表格内容，底部一般用于分页，固定高度。</p>
+<p>此种布局用flex可以很容易的实现：父容器设置高度为100%，flex-direction设置为column(主轴设置为竖向)，上部flex-shrink设置0，下部flex-grow设置1，底部flex-shrink设置0。</p>
+<p>CSS部分：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: column;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.head</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">50px</span>;</span><br><span class="line">    overflow: auto; //此行是关键 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.foot</span> &#123;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HTML部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;head&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>子元素<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>子元素<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>子元素<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>子元素<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;foot&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>底部<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/FLEX%E4%B8%8A%E4%B8%8B%E5%B8%83%E5%B1%80/20191221_105339.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>中间的内容用来放element-ui的表格，表格高度设置为100%，可以达到固定表头内容滚动的效果，一切看起来都很美好。</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/FLEX%E4%B8%8A%E4%B8%8B%E5%B8%83%E5%B1%80/20191221_110422.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>然而最近我重装了一次系统然后把chrome升级到79版本后，发现一个蛋疼的事情，这种方式居然失效了，出现了下面的情况：</p>
+<p><img   class="lazyload" data-original="https://images.liyangzone.com/article_img/%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3/FLEX%E4%B8%8A%E4%B8%8B%E5%B8%83%E5%B1%80/20191221_135805.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>中间的内容高度设置失效了，也变成了由子元素撑高。起初我怀疑是element-ui的锅，然后换了不同版本的element-ui后还是如此，然后我又怀疑可能是node版本的问题，因为我重装系统后把node由v8换成了v10,当我切换成v8后还是如此。后来我在同事的电脑上查看，他们居然没有出现这种情况，问题到底出现在了哪里？经过仔细排查后，这个锅最终落在了chrome头上，当我把chrome装回78版本后，一切又变得正常了。</p>
+<p>然后我发现这个问题也在firefox上面出现了，这种布局似乎只能在chrome78及以下生效(IE11也生效)。然而我不能阻止用户把chrome升级到79版本或使用firefox浏览器，所以这个问题的根源也不在chrome或firefox,一定是别的什么地方出现了问题。</p>
+<p>最终问题定位到了BFC(块格式化上下文,Block Formatting Context)上面，关于BFC的概念你可以前往<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">MDN</a>查看。</p>
+<p>问题的关键就是要为page-body为这个div创建BFC，让它里面的元素不会影响到外面的元素，下列方式会创建块格式化上下文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">根元素(&lt;html&gt;)</span><br><span class="line">浮动元素（元素的 float 不是 none）</span><br><span class="line">绝对定位元素（元素的 position 为 absolute 或 fixed）</span><br><span class="line">行内块元素（元素的 display 为 inline-block）</span><br><span class="line">表格单元格（元素的 display为 table-cell，HTML表格单元格默认为该值）</span><br><span class="line">表格标题（元素的 display 为 table-caption，HTML表格标题默认为该值）</span><br><span class="line">匿名表格单元格元素（元素的 display为 table、table-row、 table-row-group、table-header-group、table-footer-group（分别是HTML table、row、tbody、thead、tfoot的默认属性）或 inline-table）</span><br><span class="line">overflow 值不为 visible 的块元素</span><br><span class="line">display 值为 flow-root 的元素</span><br><span class="line">contain 值为 layout、content或 paint 的元素</span><br><span class="line">弹性元素（display为 flex 或 inline-flex元素的直接子元素）</span><br><span class="line">网格元素（display为 grid 或 inline-grid 元素的直接子元素）</span><br><span class="line">多列容器（元素的 column-count 或 column-width 不为 auto，包括 column-count 为 1）</span><br><span class="line">column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。</span><br></pre></td></tr></table></figure>
+
+<p>不过我试了多种方式，都没有生效，只有设置 <code>overflow: auto</code> 之后才生效。</p>
+<p>这个问题的根本原因就是浏览器创建BFC的规则不一致，chrome78以下版本和IE11会为<code>display</code>为<code>flex</code>的直接子元素创建BFC，不管这个子元素的overflow值为什么(默认值为visible)， chrome79版本及firefox则不会，只有设置 了<code>overflow: auto</code>之后才会创建BFC，不确定这是chrome79的feature还是bug。</p>
+<p>原生HTML+CSS源码地址:<a target="_blank" rel="noopener" href="https://codepen.io/liyang5945/pen/povvVbe">点击前往</a>。<br>vue + element-ui版源码地址：<a target="_blank" rel="noopener" href="https://codepen.io/liyang5945/pen/abzJybY">点击前往</a>。</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>peng</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2019/12/22/%E5%89%8D%E7%AB%AF/%E4%BD%BF%E7%94%A8FLEX%E5%AE%9E%E7%8E%B0%E4%B8%80%E7%A7%8D%E4%B8%8A%E4%B8%8B%E9%AB%98%E5%BA%A6%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;12&#x2F;22&#x2F;%E5%89%8D%E7%AB%AF&#x2F;%E4%BD%BF%E7%94%A8FLEX%E5%AE%9E%E7%8E%B0%E4%B8%80%E7%A7%8D%E4%B8%8A%E4%B8%8B%E9%AB%98%E5%BA%A6%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;12&#x2F;22&#x2F;%E5%89%8D%E7%AB%AF&#x2F;%E4%BD%BF%E7%94%A8FLEX%E5%AE%9E%E7%8E%B0%E4%B8%80%E7%A7%8D%E4%B8%8A%E4%B8%8B%E9%AB%98%E5%BA%A6%E4%B8%8D%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="/778/91.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FLEX%E5%B8%83%E5%B1%80/" rel="tag">FLEX布局</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/01/16/deploy-hexo-blog-with-travis-ci/"><i class="iconfont iconleft"></i>使用Travis-CI部署hexo博客到腾讯cos&github-pages</a>
+    <a href="/2019/11/21/%E5%89%8D%E7%AB%AF/%E7%83%AD%E6%9B%B4%E6%96%B0web%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">使用nginx和LiveReload搭建简单的热更新web开发环境<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=392637221 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= 'hokonder_gmail_com'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://mp.weixin.qq.com/s/y60_Uf8C29M97Oy371lZrA "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="392637221@qq.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+    <div class="fab fab-daovoice">
+      <i class="iconfont iconcomment"></i>
+    </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+  
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/f8ddc9d3.js","daovoice")</script>
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "09";
+                    var startDate = "20";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            
+	    </script>
+            <br>
+</html>
+
+
+  
+
+{% raw %}
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/spring.css">
+</head>
+<body>
+ 
+<!-- 网站主题切换模式开始 -->
+<script>
+    if (localStorage.getItem('themespring') === '1') {
+    document.body.classList.add('themespring');
+    }
+    else if (matchMedia('(prefers-color-scheme: themespring)').matches) {
+    document.body.classList.add('themespring');
+    }
+</script>
+<!-- 春节主题 按钮 -->
+<a onclick="switchThemes()" id="switchspring">
+    <img class="chunjiepic" src="./medias/spring-img/denglong.png" title="节日模式">
+</a>
+<!-- 春节主题 小鱼挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+    </div>              
+</div>
+
+<!-- 春节主题 花灯挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+    </div>              
+</div>
+ <!-- 春节主题 福袋挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+    </div>              
+</div>
+<!-- 春节主题 财神挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic" src="./medias/spring-img/caishen.png">
+    </div>                    
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic" src="./medias/spring-img/caishen.png">
+    </div>                    
+</div>
+<!-- 春节主题 大门挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+    </div>              
+</div>
+<!-- 春节主题 小鱼挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic shanzipic" src="./medias/spring-img/shanzi.png">
+    </div>              
+</div>
+<!-- 春节主题 福到挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+    </div>              
+</div>
+<!--春节主题 年货挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+    </div>              
+</div>
+<!-- 春节主题 老虎挂件 -->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+    </div>              
+</div>
+
+<!--春节主题 划船挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/dragon-boat.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic huadengpic" src="./medias/spring-img/dragon-boat.png">
+    </div>              
+</div>
+<!-- 春节主题 爆竹挂件-->
+<div class="caishendeng">        
+    <div class="caishenxianleft">
+        <img class="caishenpic lions" src="./medias/spring-img/baozhu.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic lions" src="./medias/spring-img/baozhu.png">
+    </div>              
+</div>
+<!-- 春节主题 大鼓挂件 -->
+<div class="caishendeng">        
+    <div class="guguxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/gugu.png">
+    </div>              
+</div>
+<div class="caishendeng">        
+    <div class="caishenxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/gugu.png">
+    </div>              
+</div>
+<!--春节主题 财神中心-->
+<div class="caishendeng">        
+    <div class="guguxian wenzhangxian">
+        <img class="caishenpic gugus" src="./medias/spring-img/caishen.png">
+    </div>              
+</div>
+
+<!-- 标签小帽子-->
+<img class="labelmz" src="./medias/spring-img/maozi.png">
+<!-- 头像小帽子-->
+<img class="xiaomaozitx" src="./medias/spring-img/maozi.png">
+<!-- 友链小帽子-->
+<img class="friendmz" src="./medias/spring-img/maozi.png">
+<!--大红灯笼-->
+<div class="denglong">
+    <div class="deng-box">
+        <div class="deng">
+            <div class="xian"></div>
+            <div class="deng-a">
+                <div class="deng-b"><div class="deng-t">如年</div></div>
+            </div>
+            <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+        </div>
+    </div>
+    <div class="deng-box1">
+        <div class="deng">
+            <div class="xian"></div>
+            <div class="deng-a">
+                <div class="deng-b"><div class="deng-t">冬至</div></div>
+            </div>
+            <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+        </div>
+    </div>
+</div>       
+<script src="./js/spring.js"></script>
+</body>
+{% endraw %}
