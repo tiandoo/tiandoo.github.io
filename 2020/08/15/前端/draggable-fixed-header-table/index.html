@@ -179,7 +179,7 @@
         <a href="/pkk " class="underline "> pkk</a>
       </li></ul>
     
-      <div class="menu-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+      <div class="menu-copyright">Copyright  &nbsp;&copy; <span id="year">2020~2021 peng.</span> All Rights Reserved. <a href="https://tyo-1304168527.cos.ap-nanjing.myqcloud.com/img/icp.png" target="_blank">'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">by</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
     
   </div>
 </nav>
@@ -190,7 +190,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/images/theme/75.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">使用粘性定位(position:sticky)实现固定表头、固定列的表格组件(Vue、React)</h1>
     <div class="head-info">
@@ -200,6 +200,9 @@
     </div>
   </div>
 </section>
+
+
+
     <section class="main">
       <section class="content">
         <p>最近重构的项目中有这样一个页面，一个固定表头和列的表格，表格列数较多，大概有60多列，200多条数据，而且表格需要实现拖拽滚动功能。<br>原页面的表格是用的一个比较老旧的表格插件实现，拖拽滚动是用iScroll.js实现的，性能很差，即使每页只有二、三十条数据，拖拽起来也严重卡顿。我首先使用了element-ui自带的的table组件实现了拖拽滚动的功能，性能稍微比老页面强了一点，每页50条数据时卡顿不明显，超过100条数据时有才有卡顿感。然而我对这样的性能也不是很满意，就研究了下el-table固定表头和列的实现方式，发现el-table实现固定列的方式比较坑，它是渲染了两个完整的table，然后把固定列的表格宽度写死绝对定位到左侧部分，把另一个表格盖住来实现的。当数据量较多的时候会非常卡顿。<br>后来我又研究了下ant-design里面的table组件固定列的实现方式，发现ant-design的实现方式跟element-ui不一样，它不是渲染两个table，而是基于一个CSS3属性来实现的，那就是 <code>position: sticky</code>。<br>sticky直译是粘性定位，MDN上是这样介绍的：</p>
@@ -326,7 +329,7 @@
           <i class="iconfont  iconmail"></i>
       </a></div>
   
-    <div class="footer-copyright">Copyright&nbsp;&copy; <span id="year">2020~2021</span> All Rights Reserved<a href="/about" target="_blank">peng'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">博客</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
+    <div class="footer-copyright">Copyright  &nbsp;&copy; <span id="year">2020~2021 peng.</span> All Rights Reserved. <a href="https://tyo-1304168527.cos.ap-nanjing.myqcloud.com/img/icp.png" target="_blank">'Blog </a> <a href="https://shuwanzhi.GitHub.io/" target="_blank">by</a> <a href="https://https://mp.weixin.qq.com/s/p0HwoJ6zPxuZHRLXzt-Cqw" target="_blank">微信公众号:一再羊鱼丝</a> <br></div>
   
 </footer>
   
@@ -494,35 +497,35 @@
 </script>
 <!-- 春节主题 按钮 -->
 <a onclick="switchThemes()" id="switchspring">
-    <img class="chunjiepic" src="./medias/spring-img/denglong.png" title="节日模式">
+    <img class="chunjiepic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png" title="节日模式">
 </a>
 <!-- 春节主题 小鱼挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+        <img class="caishenpic lala" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 
 <!-- 春节主题 花灯挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/huadeng.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
  <!-- 春节主题 福袋挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+        <img class="caishenpic fudai" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png" />
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic fudai" src="./medias/spring-img/fudai.png" />
+        <img class="caishenpic fudai" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png" />
     </div>              
 </div>
 <!-- 春节主题 财神挂件 -->
@@ -539,56 +542,56 @@
 <!-- 春节主题 大门挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/homes.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <!-- 春节主题 小鱼挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic lala" src="./medias/spring-img/fish.png">
+        <img class="caishenpic lala" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic shanzipic" src="./medias/spring-img/shanzi.png">
+        <img class="caishenpic shanzipic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <!-- 春节主题 福到挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+        <img class="caishenpic fudao" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic fudao" src="./medias/spring-img/fudao.png">
+        <img class="caishenpic fudao" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <!--春节主题 年货挂件-->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic huadengpic" src="./medias/spring-img/nianhuo.png">
+        <img class="caishenpic huadengpic" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <!-- 春节主题 老虎挂件 -->
 <div class="caishendeng">        
     <div class="caishenxianleft">
-        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+        <img class="caishenpic lions" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 <div class="caishendeng">        
     <div class="caishenxian">
-        <img class="caishenpic lions" src="./medias/spring-img/lion.png">
+        <img class="caishenpic lions" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
     </div>              
 </div>
 
@@ -633,9 +636,9 @@
 </div>
 
 <!-- 标签小帽子-->
-<img class="labelmz" src="./medias/spring-img/maozi.png">
+<img class="labelmz" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
 <!-- 头像小帽子-->
-<img class="xiaomaozitx" src="./medias/spring-img/maozi.png">
+<img class="xiaomaozitx" src="https://cdn.jsdelivr.net/gh/haoxihuan/666@main/spring-img/homes.png">
 <!-- 友链小帽子-->
 <img class="friendmz" src="./medias/spring-img/maozi.png">
 <!--大红灯笼-->
@@ -653,7 +656,7 @@
         <div class="deng">
             <div class="xian"></div>
             <div class="deng-a">
-                <div class="deng-b"><div class="deng-t">冬至</div></div>
+                <div class="deng-b"><div class="deng-t">春天</div></div>
             </div>
             <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
         </div>
